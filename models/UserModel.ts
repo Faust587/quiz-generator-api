@@ -1,5 +1,12 @@
 import {Schema, model} from "mongoose";
 
+export type userSchemaTypes = {
+  username: string,
+  email: string,
+  password: string,
+  activated: boolean
+}
+
 const userSchema = new Schema(
   {
     username: { type: String, unique: true, required: true },
@@ -12,4 +19,4 @@ const userSchema = new Schema(
   }
 );
 
-module.exports = model("User", userSchema);
+export const UserModel = model("User", userSchema);

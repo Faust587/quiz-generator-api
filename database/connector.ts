@@ -1,13 +1,19 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 function connect() {
+  if (typeof process.env.DATABASE_CONNECTION_URL !== "string") return;
   mongoose.connect(process.env.DATABASE_CONNECTION_URL, {
     keepAlive: true,
     keepAliveInitialDelay: 300000,
-  }, null);
+  }, (error) => {
+    if (error) {
+      console.log(error); // TODO: CREATE LOGGER
+      throw error;
+    }
+  });
 }
 
-module.exports = {
-  connect,
+export default {
   mongoose,
-};
+  connect
+}

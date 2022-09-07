@@ -27,7 +27,7 @@ export const sendActivationMail = async (to: string, link: string) => {
       html: `
         <div>
             <h1>Activate your email!</h1>
-            <a href="${link}">Click Here!</a>
+            <a href="${link}">Click Here!</a
         </div>
     `
     });

@@ -1,11 +1,11 @@
-const {Router} = require("express");
-const {
+import {Router} from "express";
+import {
   signUpController,
   signInController,
   logOutController,
   activateEmailController,
   refreshTokenController
-} = require("../controllers/authController");
+} from "../controllers/authController";
 
 const router = Router();
 

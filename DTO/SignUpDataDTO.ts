@@ -7,7 +7,7 @@ type dataType = {
   repeatedPassword: unknown
 }
 
-const signUpDataDTO = (data: dataType): signUpDataType => {
+export const signUpDataDTO = (data: dataType): signUpDataType => {
   const userData: signUpDataType = {
     username: "",
     email: "",
@@ -33,5 +33,3 @@ const signUpDataDTO = (data: dataType): signUpDataType => {
 
   return userData;
 }
-
-module.exports = {signUpDataDTO};

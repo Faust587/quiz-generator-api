@@ -2,9 +2,9 @@ import {signUpDataType} from "../types/signUpDataTypes";
 import {serviceResultTypes} from "../types/serviceResultTypes";
 import {validationErrors} from "../types/errors";
 
-const UserModel = require("../models/UserModel");
+import {UserModel} from "../models/UserModel";
 
-const signUpDataValidation = async (data: signUpDataType) => {
+export const signUpDataValidation = async (data: signUpDataType) => {
   const result: serviceResultTypes<validationErrors> = {
     ok: true,
     errors: []
@@ -145,8 +145,4 @@ const passwordValidation = (password: string): serviceResultTypes<validationErro
   }
 
   return result;
-}
-
-module.exports = {
-  signUpDataValidation
 }
