@@ -4,7 +4,7 @@ import {sendActivationMail} from "../services/mailService";
 import {generateEmailConfirmationLink} from "../utils/generateLink";
 import {signUpDataDTO} from "../DTO/SignUpDataDTO";
 import {signUpDataValidation} from "../services/validationService";
-import {createUser} from "../services/userService";
+import {createUser, activateMail} from "../services/userService";
 
 export const signUpController = async (req: Request, res: Response) => {
   const signUpData: signUpDataType = signUpDataDTO(req.body);
@@ -30,7 +30,7 @@ export const signUpController = async (req: Request, res: Response) => {
     res.json("SERVER ERROR");
     return;
   }
-  res.json("SSSSSSSSSS")
+  res.json("OK")
 }
 
 export const signInController = async (req: Request, res: Response) => {
@@ -42,7 +42,17 @@ export const logOutController = async (req: Request, res: Response) => {
 }
 
 export const activateEmailController = async (req: Request, res: Response) => {
-  res.json("activate email execution");
+  const token: string = req.params["token"];
+  const activationResult = await activateMail(token);
+  if (activationResult.ok) {
+    res.statusCode = 200;
+    const clientURL = process.env.CLIENT_URL;
+    res.redirect(`${clientURL}/confirmation-success`);
+    return;
+  }
+  res.statusCode = 500;
+  res.json(activationResult);
+  return;
 }
 
 export const refreshTokenController = async (req: Request, res: Response) => {

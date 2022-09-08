@@ -17,3 +17,8 @@ export enum validationErrors {
   EMAIL_IS_NOT_VALID = "Email is not valid",
   EMAIL_IS_BUSY = "Email is busy"
 }
+
+export enum mailActivationErrors {
+  TOKEN_IS_NOT_EXISTS = "Token is not exists!",
+  USER_IS_NOT_EXISTS = "User is not exists!",
+}
