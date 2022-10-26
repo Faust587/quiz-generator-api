@@ -1,15 +1,15 @@
 import { model, Schema } from "mongoose";
 import { ModelsName } from "../const/modelsName";
 
-const mailSchema = new Schema(
+const refreshTokenSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
       ref: ModelsName.USER_MODEL,
       required: true,
-      unique: true
+      unique: false
     },
-    confirmationToken: {
+    refreshToken: {
       type: String,
       unique: true,
       required: true
@@ -20,4 +20,4 @@ const mailSchema = new Schema(
   }
 );
 
-export const MailTokenModel = model(ModelsName.MAIL_TOKEN_MODEL, mailSchema);
+export const RefreshTokenModel = model(ModelsName.REFRESH_TOKEN_MODEL, refreshTokenSchema);
