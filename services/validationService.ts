@@ -1,8 +1,8 @@
-import {signUpDataType} from "../types/signUpDataTypes";
-import {serviceResultTypes} from "../types/serviceResultTypes";
-import {validationErrors} from "../types/errors";
+import { signUpDataType } from "../types/signUpDataTypes";
+import { serviceResultTypes } from "../types/serviceResultTypes";
+import { validationErrors } from "../types/errors";
 
-import {UserModel} from "../models/UserModel";
+import { UserModel } from "../models/UserModel";
 
 export const signUpDataValidation = async (data: signUpDataType) => {
   const result: serviceResultTypes<validationErrors> = {
@@ -48,7 +48,7 @@ const emailValidation = async (email: string) => {
     result.errors.push(validationErrors.EMAIL_IS_NOT_VALID);
   }
 
-  const isEmailExists = await UserModel.findOne({email});
+  const isEmailExists = await UserModel.findOne({ email });
   if (isEmailExists) {
     result.ok = false;
     result.errors.push(validationErrors.EMAIL_IS_BUSY);
@@ -63,13 +63,7 @@ const usernameValidation = async (username: string) => {
     errors: []
   }
 
-  if (!username.length) {
-    result.ok = false;
-    result.errors.push(validationErrors.USERNAME_IS_EMPTY);
-    return result;
-  }
-
-  const isUsernameExists = await UserModel.findOne({username});
+  const isUsernameExists = await UserModel.findOne({ username });
   if (isUsernameExists) {
     result.ok = false;
     result.errors.push(validationErrors.USERNAME_IS_BUSY);
@@ -105,11 +99,6 @@ const passwordValidation = (password: string): serviceResultTypes<validationErro
 
   const passwordLength = password.length;
 
-  if (!passwordLength) {
-    result.ok = false;
-    result.errors.push(validationErrors.PASSWORD_IS_EMPTY);
-  }
-
   if (passwordLength < 8) {
     result.ok = false;
     result.errors.push(validationErrors.PASSWORD_MUST_HAVE_MORE);
@@ -120,28 +109,6 @@ const passwordValidation = (password: string): serviceResultTypes<validationErro
     result.ok = false;
     result.errors.push(validationErrors.PASSWORD_MUST_HAVE_LESS);
     return result;
-  }
-
-  const checkDigit = new RegExp(/(?=.*\d)/);
-  const checkLowerCase = new RegExp(/(?=.*[a-z])/);
-  const checkUpperCase = new RegExp(/(?=.*[A-Z])/);
-
-  const isDigit = checkDigit.test(password);
-  if (!isDigit) {
-    result.ok = false;
-    result.errors.push(validationErrors.PASSWORD_MUST_HAVE_DIGIT);
-  }
-
-  const isLowerCase = checkLowerCase.test(password);
-  if (!isLowerCase) {
-    result.ok = false;
-    result.errors.push(validationErrors.PASSWORD_MUST_HAVE_LOWER_CASE);
-  }
-
-  const isUpperCase = checkUpperCase.test(password);
-  if (!isUpperCase) {
-    result.ok = false;
-    result.errors.push(validationErrors.PASSWORD_MUST_HAVE_UPPER_CASE);
   }
 
   return result;
