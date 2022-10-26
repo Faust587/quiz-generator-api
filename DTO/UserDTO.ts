@@ -1,18 +1,18 @@
 export type UserDTOType = {
-  _id: string,
+  id: string,
   username: string,
   activated: boolean
 }
 
 export const createUserDTO = (userData: any): UserDTOType => {
   const userDTO: UserDTOType = {
-    _id: "",
+    id: "",
     username: "",
     activated: false
   }
 
-  if (typeof userData._id === "string") {
-    userDTO._id = userData._id;
+  if (typeof userData.id === "string") {
+    userDTO.id = userData.id;
   }
 
   if (typeof userData.username === "string") {
